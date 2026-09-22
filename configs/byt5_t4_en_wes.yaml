@@ -1,0 +1,48 @@
+run_name: Turaco-ByT5-mt-en-wes
+backend: byt5
+base_model: google/byt5-base
+dataset_id: michsethowusu/english-cameroon-pidgin_sentence-pairs_mt560
+output_dir: outputs/Turaco-ByT5-mt-en-wes
+directions: [en-wes]
+seed: 42
+
+data:
+  validation_ratio: 0.05
+  test_ratio: 0.05
+  min_words: 2
+  max_words: 180
+  min_word_ratio: 0.35
+  max_word_ratio: 3.0
+  strip_reference_noise: true
+  detokenize: true
+
+tokenization:
+  max_source_length: 512
+  max_target_length: 512
+
+training:
+  mode: full
+  epochs: 6
+  learning_rate: 0.0001
+  train_batch_size: 2
+  eval_batch_size: 4
+  gradient_accumulation_steps: 16
+  gradient_checkpointing: true
+  fp16: true
+  bf16: false
+  optimizer: adafactor
+  warmup_ratio: 0.05
+  label_smoothing_factor: 0.1
+  logging_steps: 50
+  eval_steps: 250
+  save_steps: 250
+  save_total_limit: 2
+  early_stopping_patience: 4
+
+generation:
+  batch_size: 8
+  num_beams: 5
+  max_new_tokens: 512
+  length_penalty: 1.0
+  no_repeat_ngram_size: 3
+  repetition_penalty: 1.1

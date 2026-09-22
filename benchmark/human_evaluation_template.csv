@@ -1,0 +1,1 @@
+item_id,reviewer_id,system_id,direction,source,reference,prediction,adequacy_1_5,fluency_1_5,dialect_fidelity_1_5,omission_0_1,addition_hallucination_0_1,wrong_negation_0_1,wrong_entity_or_number_0_1,source_copy_0_1,offensive_distortion_0_1,unsafe_high_stakes_error_0_1,comments

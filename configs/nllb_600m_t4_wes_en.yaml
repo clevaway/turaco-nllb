@@ -1,0 +1,53 @@
+run_name: Turaco-NLLB-mt-wes-en
+backend: nllb
+base_model: facebook/nllb-200-distilled-600M
+dataset_id: michsethowusu/english-cameroon-pidgin_sentence-pairs_mt560
+output_dir: outputs/Turaco-NLLB-mt-wes-en
+directions: [wes-en]
+seed: 42
+
+data:
+  validation_ratio: 0.05
+  test_ratio: 0.05
+  min_words: 2
+  max_words: 180
+  min_word_ratio: 0.35
+  max_word_ratio: 3.0
+  strip_reference_noise: true
+  detokenize: true
+
+tokenization:
+  max_source_length: 160
+  max_target_length: 192
+
+tokenizer_extension:
+  enabled: true
+  vocab_size: 4000
+  min_character_frequency: 3
+
+training:
+  mode: full
+  epochs: 4
+  learning_rate: 0.00003
+  train_batch_size: 2
+  eval_batch_size: 4
+  gradient_accumulation_steps: 16
+  gradient_checkpointing: true
+  fp16: true
+  bf16: false
+  optimizer: adafactor
+  warmup_ratio: 0.05
+  label_smoothing_factor: 0.1
+  logging_steps: 50
+  eval_steps: 250
+  save_steps: 250
+  save_total_limit: 2
+  early_stopping_patience: 4
+
+generation:
+  batch_size: 16
+  num_beams: 5
+  max_new_tokens: 192
+  length_penalty: 1.0
+  no_repeat_ngram_size: 3
+  repetition_penalty: 1.1
